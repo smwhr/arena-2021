@@ -1,5 +1,5 @@
 <?php
-
+namespace Arena;
 
 class RobotPosition{
   private $x;

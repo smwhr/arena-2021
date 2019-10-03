@@ -1,14 +1,9 @@
 <?php
-include_once("../models/Robot.php");
-include_once("../models/Arena.php");
-include_once("../data/board.php");
-
-$bender = new \Robot();
-$tardis = new \Robot();
-
-$arena = new Arena($ascii_board, [$bender, $tardis]);
-
+session_start();
+include("../data/board.php");
+include("../src/controller.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

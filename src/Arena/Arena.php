@@ -1,5 +1,5 @@
 <?php
-include_once("RobotPosition.php");
+namespace Arena;
 
 class Arena{
   public $board;
