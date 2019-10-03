@@ -3,6 +3,12 @@
 namespace Robot;
 
 
-class DefaultRobot extends \Arena\Robot{
+class DefaultRobot implements \Arena\Robot{
+  public function setSurroundings($position, $surroundings){
+    //TODO
+  }
 
+  public function requestMove(){
+    //TODO
+  }
 }
