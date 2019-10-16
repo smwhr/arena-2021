@@ -32,10 +32,10 @@ class RobotPosition{
       $this->y=$this->y-1;
       break;
       case "W":
-      $this->y=$this->x+1;
+      $this->x=$this->x+1;
       break;
       case "E":
-      $this->y=$this->x-1;
+      $this->x=$this->x-1;
       break;
     }
 }
