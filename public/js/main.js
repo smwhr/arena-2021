@@ -19,8 +19,14 @@ for(let i = 0; i < myBoard.length; i++)
 
         case 'A':
             robotA = document.createElement('span')
-            robotA
-            myBoard[i] = ''
+            robotA.setAttribute('class', 'robotA')
+            myBoard[i] = robotA.outerHTML;
+        break
+
+        case 'B':
+            robotB = document.createElement('span')
+            robotB.setAttribute('class', 'robotB')
+            myBoard[i] = robotB.outerHTML;
         break
     }
 }
