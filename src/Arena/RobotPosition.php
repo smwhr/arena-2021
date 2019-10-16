@@ -22,4 +22,22 @@ class RobotPosition{
   public function getDirection(){
     return $this->direction;
   }
+
+  public function ahead(){
+    switch($this->getDirection()){
+      case "N":
+      $this->y=$this->y+1;
+      break;
+      case "S":
+      $this->y=$this->y-1;
+      break;
+      case "W":
+      $this->y=$this->x+1;
+      break;
+      case "E":
+      $this->y=$this->x-1;
+      break;
+    }
+}
+
 }
