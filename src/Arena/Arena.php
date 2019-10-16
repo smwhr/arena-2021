@@ -123,22 +123,22 @@ class Arena{
         case 'N':
           if ($position.getY() < $y) {
             // victim gets hit
-            $this->hit($shooter, $victim);
+            $this->hit($victim);
           }
           break;
         case 'E':
           if ($position.getX() > $x) {
-            $this->hit($shooter, $victim);
+            $this->hit($victim);
           }
           break;
         case 'S':
           if ($position.getY() > $y) {
-            $this->hit($shooter, $victim);
+            $this->hit($victim);
           }
           break;
         case 'W':
           if ($position.getX() < $x) {
-            $this->hit($shooter, $victim);
+            $this->hit($victim);
           }
           break;
       }
