@@ -53,22 +53,24 @@ class Arena {
     return $this->winner;
   }
 
-  public function canEnter($x, $y){
-    switch($this->getDirection()){
+  public function canEnter($position){
+    $y= $position->getY();
+    $x= $position->getX();
+    switch($position->getDirection()){
       case "N":
-      $y=$this->y+1;
+      $y=$y+1;
       break;
       case "S":
-      $y=$this->y-1;
+      $y=$y-1;
       break;
       case "W":
-      $x=$this->x+1;
+      $x=$x+1;
       break;
       case "E":
-      $x=$this->x-1;
+      $x=$x-1;
       break;
     }
-    $trial = $this->board[$y][$x]== "x" ?  false : true;
+    $trial = $this->board[$y][$x]!== " " ?  false : true;
     return $trial;
   }
 
@@ -151,7 +153,7 @@ class Arena {
           $this->positions[$id]->rotate('right');
           break;
         case RobotOrder::AHEAD:
-          if($this->canEnter($robot->getX(),$robot->getY())){
+          if($this->canEnter($position)){
             $this->positions[$id]->ahead(true);
           }
           break;
