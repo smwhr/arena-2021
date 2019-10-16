@@ -12,6 +12,6 @@ class RandomRobot implements \Arena\Robot{
     $robotOrder = new \Arena\RobotOrder();
 		$actions = [$robotOrder::TURN_LEFT, $robotOrder::TURN_RIGHT, $robotOrder::AHEAD, $robotOrder::FIRE, $robotOrder::WAIT];
 
-		return array_rand($actions);
+		return $actions[array_rand($actions)];
 	}
 }
