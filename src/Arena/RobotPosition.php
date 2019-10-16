@@ -79,10 +79,10 @@ class RobotPosition
     public function ahead(){
       switch($this->getDirection()){
         case "N":
-        $this->y=$this->y+1;
+        $this->y=$this->y-1;
         break;
         case "S":
-        $this->y=$this->y-1;
+        $this->y=$this->y+1;
         break;
         case "W":
         $this->x=$this->x+1;

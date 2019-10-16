@@ -58,10 +58,10 @@ class Arena {
     $x= $position->getX();
     switch($position->getDirection()){
       case "N":
-      $y=$y+1;
+      $y=$y-1;
       break;
       case "S":
-      $y=$y-1;
+      $y=$y+1;
       break;
       case "W":
       $x=$x+1;
