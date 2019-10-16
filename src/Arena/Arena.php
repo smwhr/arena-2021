@@ -121,23 +121,23 @@ class Arena{
       }
       switch ($dir) {
         case 'N':
-          if ($position->getY() < $y) {
+          if ($position->getY() < $y && $position->getX() == $x) {
             // victim gets hit
             $this->hit($victim);
           }
           break;
         case 'E':
-          if ($position->getX() > $x) {
+          if ($position->getX() > $x && $position->getY() == $y) {
             $this->hit($victim);
           }
           break;
         case 'S':
-          if ($position->getY() > $y) {
+          if ($position->getY() > $y && $position->getX() == $x) {
             $this->hit($victim);
           }
           break;
         case 'W':
-          if ($position->getX() < $x) {
+          if ($position->getX() < $x && $position->getY() == $y) {
             $this->hit($victim);
           }
           break;
