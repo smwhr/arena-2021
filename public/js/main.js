@@ -16,6 +16,12 @@ for(let i = 0; i < myBoard.length; i++)
             floor.setAttribute('class', 'floor')
             myBoard[i] = floor.outerHTML;
         break
+
+        case 'A':
+            robotA = document.createElement('span')
+            robotA
+            myBoard[i] = ''
+        break
     }
 }
 
