@@ -125,12 +125,43 @@ class Arena {
     }
   }
 
-  public function fire($id) {
-    //liste les autres robots
-    //si un autre robot est sur la trajectoire
-    //alors on retire un point de vie au robot
-  }
+  public function fire($shooter){
+    // get position and facing
+    $x = $this->positions[$shooter]->getX();
+    $y = $this->positions[$shooter]->getY();
+    $dir = $this->positions[$shooter]->getDirection();
 
+    foreach ($this->positions as $victim => $position) {
+      if ($victim == $shooter) {
+        // don't shoot yourself
+        continue;
+      }
+      switch ($dir) {
+        case 'N':
+          if ($position->getY() < $y && $position->getX() == $x) {
+            // victim gets hit
+            $this->hit($victim);
+          }
+          break;
+        case 'E':
+          if ($position->getX() > $x && $position->getY() == $y) {
+            $this->hit($victim);
+          }
+          break;
+        case 'S':
+          if ($position->getY() > $y && $position->getX() == $x) {
+            $this->hit($victim);
+          }
+          break;
+        case 'W':
+          if ($position->getX() < $x && $position->getY() == $y) {
+            $this->hit($victim);
+          }
+          break;
+      }
+    }
+  }
+  
   public function hit($robot_id) {
     $this->lives[$robot_id] = $this->lives[$robot_id] - 1;
   }
