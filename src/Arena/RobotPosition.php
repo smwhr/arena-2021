@@ -18,4 +18,8 @@ class RobotPosition{
   public function getY(){
     return $this->y;
   }
+
+  public function getDirection(){
+    return $this->direction;
+  }
 }
