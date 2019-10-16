@@ -22,4 +22,45 @@ class RobotPosition{
   public function getDirection(){
     return $this->direction;
   }
+
+  public function setDirection($direction){
+    $this->direction=$direction;
+  }
+
+  public function rotate($direction){
+    if($direction=="left"){
+      switch($this->direction){
+        case "N":
+        $this->setDirection("O");
+        break;
+        case "O":
+        $this->setDirection("S");
+        break;
+        case "S":
+        $this->setDirection("E");
+        break;
+        case "E":
+        $this->setDirection("N");
+        break; 
+      }
+    }
+    if($direction=="right"){
+      switch($this->direction){
+        case "N":
+        $this->setDirection("E");
+        break;
+        case "E":
+        $this->setDirection("S");
+        break;
+        case "S":
+        $this->setDirection("O");
+        break;
+        case "O":
+        $this->setDirection("N");
+        break; 
+      }
+    }
+
+    
+  }
 }
