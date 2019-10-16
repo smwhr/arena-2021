@@ -1,11 +1,18 @@
 <?php
 require("../vendor/autoload.php");
+// require('../public/index.php');
 
-if(isset($_POST['RESET']) || isset($_GET['RESET'])){
+if(isset($_POST['restart'])){
   unset($_SESSION['arena']);
   header('Location: '.$_SERVER['REQUEST_URI']);
   exit;
-}
+} 
+
+// if(isset($_POST['RESET']) || isset($_GET['RESET'])){
+//   unset($_SESSION['arena']);
+//   header('Location: '.$_SERVER['REQUEST_URI']);
+//   exit;
+// }
 
 if(!isset($_SESSION['arena'])){
 
