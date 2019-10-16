@@ -53,8 +53,25 @@ class Arena {
     return $this->winner;
   }
 
-  public function canEnter($x, $y) {
-    return /* condition qui dit si c'est un point*/;
+  public function canEnter($position){
+    $y= $position->getY();
+    $x= $position->getX();
+    switch($position->getDirection()){
+      case "N":
+      $y=$y-1;
+      break;
+      case "S":
+      $y=$y+1;
+      break;
+      case "W":
+      $x=$x+1;
+      break;
+      case "E":
+      $x=$x-1;
+      break;
+    }
+    $trial = !$this->board[$y][$x]!== " ";
+    return $trial;
   }
 
   public function getSurroundings($position) {
@@ -167,8 +184,7 @@ class Arena {
           $this->positions[$id]->rotate('right');
           break;
         case RobotOrder::AHEAD:
-          $tentativePosition = $this->positions[$id]->ahead();
-          if ($this->canEnter($tentativePosition)) {
+          if($this->canEnter($position)){
             $this->positions[$id]->ahead(true);
           }
           break;
