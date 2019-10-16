@@ -27,8 +27,8 @@ class RobotPosition{
     $this->direction=$direction;
   }
 
-  public function rotate($direction){
-    if($direction=="left"){
+  public function rotate($orientation){
+    if($orientation=="left"){
       switch($this->direction){
         case "N":
         $this->setDirection("O");
@@ -44,7 +44,7 @@ class RobotPosition{
         break; 
       }
     }
-    if($direction=="right"){
+    if($orientation=="right"){
       switch($this->direction){
         case "N":
         $this->setDirection("E");
