@@ -110,9 +110,9 @@ class Arena{
 
   public function fire($shooter){
     // get position and facing
-    $x = $this->positions[$shooter].getX();
-    $y = $this->positions[$shooter].getY();
-    $dir = $this->positions[$shooter].getDirection();
+    $x = $this->positions[$shooter]->getX();
+    $y = $this->positions[$shooter]->getY();
+    $dir = $this->positions[$shooter]->getDirection();
 
     foreach ($this->positions as $victim => $position) {
       if ($victim == $shooter) {
@@ -121,23 +121,23 @@ class Arena{
       }
       switch ($dir) {
         case 'N':
-          if ($position.getY() < $y) {
+          if ($position->getY() < $y) {
             // victim gets hit
             $this->hit($victim);
           }
           break;
         case 'E':
-          if ($position.getX() > $x) {
+          if ($position->getX() > $x) {
             $this->hit($victim);
           }
           break;
         case 'S':
-          if ($position.getY() > $y) {
+          if ($position->getY() > $y) {
             $this->hit($victim);
           }
           break;
         case 'W':
-          if ($position.getX() < $x) {
+          if ($position->getX() < $x) {
             $this->hit($victim);
           }
           break;
