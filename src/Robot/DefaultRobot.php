@@ -11,4 +11,9 @@ class DefaultRobot implements \Arena\Robot{
   public function requestMove(){
     //TODO
   }
+
+  public function postHit() {
+    
+  }
+
 }
