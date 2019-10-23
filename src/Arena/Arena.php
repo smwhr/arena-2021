@@ -164,7 +164,9 @@ class Arena {
   
   public function hit($robot_id) {
     $this->lives[$robot_id] = $this->lives[$robot_id] - 1;
+    $this->robots[$robot_id]->postHit();
   }
+
 
   public function turn() {
     // on a les positions des robots
