@@ -19,6 +19,11 @@ if(!isset($_SESSION['arena'])){
   $arena = unserialize($_SESSION['arena']);
 }
 
+
+if ($robotA == $robotA) {
+  echo hit();
+}
+
 // try{
   $turn_report = $arena->turn();
 // }catch(Arena\WinningCondition $wc){

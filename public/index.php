@@ -1,7 +1,5 @@
 <?php
 session_start();
-include("../data/board.php");
-include("../src/controller.php");
 ?>
 
 <!DOCTYPE html>
