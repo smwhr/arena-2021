@@ -14,6 +14,9 @@ include("../src/controller.php");
 
   <h1>Robot Arena</h1>
 
+  <form action="index.php" method="post">
+    <input type="submit" name="restart" value="Do it again" />
+  </form>
   
 <pre><?php $arena->drawBoard();?></pre>
 

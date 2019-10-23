@@ -53,8 +53,25 @@ class Arena {
     return $this->winner;
   }
 
-  public function canEnter($x, $y) {
-    return /* condition qui dit si c'est un point*/;
+  public function canEnter($position){
+    $y= $position->getY();
+    $x= $position->getX();
+    switch($position->getDirection()){
+      case "N":
+      $y=$y-1;
+      break;
+      case "S":
+      $y=$y+1;
+      break;
+      case "W":
+      $x=$x+1;
+      break;
+      case "E":
+      $x=$x-1;
+      break;
+    }
+    $trial = !$this->board[$y][$x]!== " ";
+    return $trial;
   }
 
   public function getSurroundings($position) {
@@ -108,12 +125,43 @@ class Arena {
     }
   }
 
-  public function fire($id) {
-    //liste les autres robots
-    //si un autre robot est sur la trajectoire
-    //alors on retire un point de vie au robot
-  }
+  public function fire($shooter){
+    // get position and facing
+    $x = $this->positions[$shooter]->getX();
+    $y = $this->positions[$shooter]->getY();
+    $dir = $this->positions[$shooter]->getDirection();
 
+    foreach ($this->positions as $victim => $position) {
+      if ($victim == $shooter) {
+        // don't shoot yourself
+        continue;
+      }
+      switch ($dir) {
+        case 'N':
+          if ($position->getY() < $y && $position->getX() == $x) {
+            // victim gets hit
+            $this->hit($victim);
+          }
+          break;
+        case 'E':
+          if ($position->getX() > $x && $position->getY() == $y) {
+            $this->hit($victim);
+          }
+          break;
+        case 'S':
+          if ($position->getY() > $y && $position->getX() == $x) {
+            $this->hit($victim);
+          }
+          break;
+        case 'W':
+          if ($position->getX() < $x && $position->getY() == $y) {
+            $this->hit($victim);
+          }
+          break;
+      }
+    }
+  }
+  
   public function hit($robot_id) {
     $this->lives[$robot_id] = $this->lives[$robot_id] - 1;
   }
@@ -136,8 +184,7 @@ class Arena {
           $this->positions[$id]->rotate('right');
           break;
         case RobotOrder::AHEAD:
-          $tentativePosition = $this->positions[$id]->ahead();
-          if ($this->canEnter($tentativePosition)) {
+          if($this->canEnter($position)){
             $this->positions[$id]->ahead(true);
           }
           break;
