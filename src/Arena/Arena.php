@@ -69,7 +69,7 @@ class Arena {
       $x=$x-1;
       break;
     }
-    $trial = !$this->board[$y][$x]!== " ";
+    $trial = ($this->board[$y][$x]) === ' ';  
     return $trial;
   }
 
@@ -140,24 +140,29 @@ class Arena {
           if ($position->getY() < $y && $position->getX() == $x) {
             // victim gets hit
             $this->hit($victim);
+            return $victim;
           }
           break;
         case 'E':
           if ($position->getX() > $x && $position->getY() == $y) {
             $this->hit($victim);
+            return $victim;
           }
           break;
         case 'S':
           if ($position->getY() > $y && $position->getX() == $x) {
             $this->hit($victim);
+            return $victim;
           }
           break;
         case 'W':
           if ($position->getX() < $x && $position->getY() == $y) {
             $this->hit($victim);
+            return $victim;
           }
           break;
       }
+      return false;
     }
   }
   
@@ -190,7 +195,12 @@ class Arena {
           }
           break;
         case RobotOrder::FIRE:
-          $this->fire($id);
+          $victim = $this->fire($id);
+          if($victim && $this->lives[$victim] == 0){
+            throw WinningCondition(
+              "$victim est mort. $id a gagné.", 
+              $this->robots[$id]);
+          }
           break;
         default:
         case RobotOrder::WAIT:
@@ -198,6 +208,7 @@ class Arena {
       }
 
       // on compte les points, et on arrête si y a un winner
+
     }
 
   }
