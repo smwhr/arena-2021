@@ -2,7 +2,6 @@
 require("../vendor/autoload.php");
 // require('../public/index.php');
 
-
 if(isset($_POST['restart'])){
   unset($_SESSION['arena']);
 } 
