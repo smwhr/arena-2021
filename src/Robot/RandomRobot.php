@@ -10,7 +10,11 @@ class RandomRobot implements \Arena\Robot{
 
   public function requestMove(){
     $robotOrder = new \Arena\RobotOrder();
-		$actions = [$robotOrder::TURN_LEFT, $robotOrder::TURN_RIGHT, $robotOrder::AHEAD, $robotOrder::FIRE, $robotOrder::WAIT];
+		$actions = [$robotOrder::TURN_LEFT, 
+			    $robotOrder::TURN_RIGHT, 
+			    $robotOrder::AHEAD, 
+			    $robotOrder::FIRE, 
+			    $robotOrder::WAIT];
 
 		return $actions[array_rand($actions)];
 	}
