@@ -164,7 +164,6 @@ class Arena {
   
   public function hit($robot_id) {
     $this->lives[$robot_id] = $this->lives[$robot_id] - 1;
-    echo "Tu as été hit par le robot adverse";
     $this->robots[$robot_id]->postHit();
   }
 
