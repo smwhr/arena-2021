@@ -21,7 +21,6 @@ class Arena {
       if (!($robot instanceof \Arena\Robot)) {
         throw new \Exception(get_class($robot) . " is not correct");
       }
-
       $initialPos = array_shift($this->initialPositions);
       list($x, $y, $robot_id) = $initialPos;
       $this->positions[$robot_id] = new RobotPosition($x, $y, "N");
