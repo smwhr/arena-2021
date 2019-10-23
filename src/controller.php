@@ -40,11 +40,11 @@ if(!isset($_SESSION['arena'])) {
   $arena = unserialize($_SESSION['arena']);
 }
 
-// try{
+try{
   $turn_report = $arena->turn();
-// }catch(Arena\WinningCondition $wc){
-  // $turn_report[] = $wc->getMessage();
-// }
+}catch(Arena\WinningCondition $wc){
+  echo $wc->getMessage();
+}
 
 
 //don't forget to save to session the new state
