@@ -2,18 +2,17 @@
 
 namespace Robot;
 
+class ShooterRobot implements \Arena\Robot{
 
-class DefaultRobot implements \Arena\Robot{
   public function setSurroundings($position, $surroundings){
     //TODO
   }
 
   public function requestMove(){
-    //TODO
+    return \Arena\RobotOrder::FIRE;
   }
-
+  
   public function postHit() {
     
   }
-
 }

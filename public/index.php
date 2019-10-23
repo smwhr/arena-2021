@@ -21,17 +21,28 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Robot Arena</title>
-		<link rel="stylesheet" href="css/main.css">
-	</head>
-	<body>
-		
-		<h1>Robot Arena</h1>
-		
-		<pre id="board"><?php $arena->drawBoard();?></pre>
-		
-		<script type="text/javascript" src="js/main.js"></script>
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <title>Robot Arena</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <h1>Robot Arena</h1>
+
+  <fieldset>
+    <legend>Recommencer ?</legend>
+    <form action="index.php" method="post">
+      A : <input type="text" name='yourrobot' placeholder="Your robot">
+      B : <input type="text" name='enemierobot' placeholder="Your enemy robot">
+      <input type="submit" name="restart" value="Do it again" />
+    </form>
+  </fieldset>
+  
+  <pre id="board"><?php $arena->drawBoard();?></pre>
+
+<script type="text/javascript" src="js/main.js"></script>
+</body>
 </html>
+
+
