@@ -70,7 +70,7 @@ class Arena {
       $x=$x-1;
       break;
     }
-    $trial = !$this->board[$y][$x]!== " ";
+    $trial = ($this->board[$y][$x]) === ' ';  
     return $trial;
   }
 
