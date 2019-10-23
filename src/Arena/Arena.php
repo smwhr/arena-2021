@@ -29,6 +29,11 @@ class Arena{
 			$this->lives[$robot_id]  = 100;
 		}
 	}
+
+	public function getRobotDirection($robot)
+	{
+		return $this->positions[$robot]->getDirection();
+	}
 	
 	private function loadBoard($ascii_board){
 		$ascii_rows = explode("\n", $ascii_board);

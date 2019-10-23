@@ -33,16 +33,17 @@ pre {
     background: #ad8c4e;
 }
 
-.robotA {
+#robotA {
     display: inline-block;
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 20px 40px 20px;
     border-color: transparent transparent #793434 transparent;
+
 }
 
-.robotB {
+#robotB {
     display: inline-block;
     width: 0;
     height: 0;
@@ -50,3 +51,8 @@ pre {
     border-width: 0 20px 40px 20px;
     border-color: transparent transparent #3c3c85 transparent;
 }
+
+.north { transform: rotate(0deg); }
+.south { transform: rotate(180deg); }
+.est { transform: rotate(90deg); }
+.west { transform: rotate(-90deg); }
