@@ -17,5 +17,9 @@ class RandomRobot implements \Arena\Robot{
 			    $robotOrder::WAIT];
 
 		return $actions[array_rand($actions)];
-	}
+  }
+  
+  public function postHit() {
+    
+  }
 }
