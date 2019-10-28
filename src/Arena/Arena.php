@@ -70,7 +70,9 @@ class Arena {
       $x=$x-1;
       break;
     }
-    $trial = ($this->board[$y][$x]) === ' ';  
+    $has_robot = $this->isRobotAt($x, $y);
+    $trial = ($this->board[$y][$x]) === ' '
+              && !$has_robot;  
     return $trial;
   }
 
