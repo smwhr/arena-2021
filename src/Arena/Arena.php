@@ -31,6 +31,11 @@ class Arena {
     }
   }
 
+  	public function getRobotDirection($robot)
+	{
+		return $this->positions[$robot]->getDirection();
+	}
+
   private function loadBoard($ascii_board) {
     $ascii_rows = explode("\n", $ascii_board);
     $this->board = array_map(function ($row) {
