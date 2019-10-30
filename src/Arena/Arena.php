@@ -179,7 +179,7 @@ class Arena {
     // on a les positions des robots
     // on informe les robots de ce qui se trouve autour d'eux
 
-    $summary = [];
+    $turn_report = [];
 
     foreach ($this->robots as $id => $robot) {
       $position = $this->positions[$id];
@@ -191,25 +191,25 @@ class Arena {
       switch ($move) {
         case RobotOrder::TURN_LEFT:
           $this->positions[$id]->rotate('left');
-          $summary[] = "$id turns left";
+          $turn_report[] = "$id turns left";
           break;
         case RobotOrder::TURN_RIGHT:
           $this->positions[$id]->rotate('right');
-          $summary[] = "$id turns right";
+          $turn_report[] = "$id turns right";
           break;
         case RobotOrder::AHEAD:
           if($this->canAdvance($position)){
             $this->positions[$id]->ahead(true);
-            $summary[] = "$id goes ahead";
+            $turn_report[] = "$id goes ahead";
           }else{
-            $summary[] = "$id is blocked";
+            $turn_report[] = "$id is blocked";
           }
           break;
         case RobotOrder::FIRE:
-          $summary[] = "$id fires";
+          $turn_report[] = "$id fires";
           $victim = $this->fire($id);
           if($victim){
-            $summary[] = "$victim is hit";
+            $turn_report[] = "$victim is hit";
           }
           if($victim && $this->lives[$victim] == 0){
             throw WinningCondition(
@@ -219,12 +219,12 @@ class Arena {
           break;
         default:
         case RobotOrder::WAIT:
+          $turn_report[] = "$id awaits";
           break;
       }
 
     }
-    return $summary;
-
+    return $turn_report;
   }
 
 }

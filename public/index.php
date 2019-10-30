@@ -23,7 +23,17 @@ include("../src/controller.php");
     </form>
   </fieldset>
   
-  <pre><?php $arena->drawBoard();?></pre>
+  <div style="float:left; width: 30%;">
+    <pre><?php $arena->drawBoard();?></pre>
+  </div>
+
+  <div style="float:left; width: 30%;">
+    <h4>Résumé du tour</h4>
+    <ul>
+      <?php foreach ($turn_report as $line): ?>
+        <li><?php echo $line;?></li>
+      <?php endforeach ?>
+  </div>
 
   
 </body>
