@@ -12,7 +12,7 @@ class ShooterRobot implements \Arena\Robot{
     return \Arena\RobotOrder::FIRE;
   }
   
-  public function postHit() {
+  public function postHit($from) {
     
   }
 }

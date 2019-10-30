@@ -44,9 +44,9 @@ class RobotPosition
         if ($orientation == "left") {
             switch ($this->direction) {
                 case "N":
-                    $this->setDirection("O");
+                    $this->setDirection("W");
                     break;
-                case "O":
+                case "W":
                     $this->setDirection("S");
                     break;
                 case "S":
@@ -66,9 +66,9 @@ class RobotPosition
                     $this->setDirection("S");
                     break;
                 case "S":
-                    $this->setDirection("O");
+                    $this->setDirection("W");
                     break;
-                case "O":
+                case "W":
                     $this->setDirection("N");
                     break;
             }

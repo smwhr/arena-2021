@@ -19,7 +19,7 @@ class RandomRobot implements \Arena\Robot{
 		return $actions[array_rand($actions)];
   }
   
-  public function postHit() {
+  public function postHit($from) {
     
   }
 }
