@@ -5,10 +5,12 @@ class Arena {
   public $board;
   public $robots;
 
-  private $winner;
   private $positions;
   private $initialPositions;
   private $lives;
+
+  private $winner = false;
+  private $loser = false;
 
   public function __construct($ascii_board, $robots) {
 
@@ -45,11 +47,15 @@ class Arena {
     }
   }
 
-  private function setWinner($winner) {
-    $this->winner = $winner;
-  }
-  private function getWinner($winner) {
-    return $this->winner;
+  public function getSummary(){
+    $summary = [];
+    foreach ($this->robots as $id => $robot) {
+      $summary[$id] = ["class"    => get_class($robot),
+                       "life"     => $this->lives[$id],
+                       "position" => $this->positions[$id]
+                      ];
+    }
+    return $summary;
   }
 
   public function canAdvance($position){
@@ -89,14 +95,6 @@ class Arena {
       $surroundings[] = $row;
     }
     return $surroundings;
-  }
-
-  public function getBoardSize() {
-    //return size of board
-  }
-
-  public function askMove($robot) {
-    //logique qui déplace le robot en fonction de sa demande
   }
 
   private function isRobotAt($x, $y) {
@@ -178,6 +176,11 @@ class Arena {
   public function turn() {
     // on a les positions des robots
     // on informe les robots de ce qui se trouve autour d'eux
+    if($this->winner){
+       throw new WinningCondition(
+              "{$this->loser} est mort. {$this->winner} a gagné.", 
+              $this->robots[$this->winner]);
+    }
 
     $turn_report = [];
 
@@ -211,7 +214,9 @@ class Arena {
           if($victim){
             $turn_report[] = "$victim is hit";
           }
-          if($victim && $this->lives[$victim] == 0){
+          if($victim && $this->lives[$victim] < 0){
+            $this->winner = $id;
+            $this->loser = $victim;
             throw new WinningCondition(
               "$victim est mort. $id a gagné.", 
               $this->robots[$id]);
