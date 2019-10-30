@@ -29,44 +29,47 @@ class RobotPosition {
     $this->direction = $direction;
   }
 
-  // Change la direction du robot en fonction de sa direction actuelle et de l'orientation dans laquelle il se tourne
-
-  public function rotate($orientation) {
-    if ($orientation == "left") {
-      switch ($this->direction) {
-        case "N":
-          $this->setDirection("W");
-          break;
-        case "W":
-          $this->setDirection("S");
-          break;
-        case "S":
-          $this->setDirection("E");
-          break;
-        case "E":
-          $this->setDirection("N");
-          break;
+    // Change la direction du robot en fonction de sa direction actuelle et de l'orientation dans laquelle il se tourne 
+    
+    public function rotate($orientation)
+    {
+        if ($orientation == "left") {
+            switch ($this->direction) {
+                case "N":
+                    $this->setDirection("W");
+                    break;
+                case "W":
+                    $this->setDirection("S");
+                    break;
+                case "S":
+                    $this->setDirection("E");
+                    break;
+                case "E":
+                    $this->setDirection("N");
+                    break;
+            }
+        }
+        if ($orientation == "right") {
+            switch ($this->direction) {
+                case "N":
+                    $this->setDirection("E");
+                    break;
+                case "E":
+                    $this->setDirection("S");
+                    break;
+                case "S":
+                    $this->setDirection("W");
+                    break;
+                case "W":
+                    $this->setDirection("N");
+                    break;
+            }
+        }
       }
-    }
-    if ($orientation == "right") {
-      switch ($this->direction) {
-        case "N":
-          $this->setDirection("E");
-          break;
-        case "E":
-          $this->setDirection("S");
-          break;
-        case "S":
-          $this->setDirection("W");
-          break;
-        case "W":
-          $this->setDirection("N");
-          break;
-      }
-    }
 
-  }
 
+  
+     
   public function ahead() {
     switch ($this->getDirection()) {
       case "N":

@@ -22,7 +22,6 @@ class Arena {
       if (!($robot instanceof \Arena\Robot)) {
         throw new \Exception(get_class($robot) . " is not correct");
       }
-
       $initialPos = array_shift($this->initialPositions);
       list($x, $y, $robot_id) = $initialPos;
       $this->positions[$robot_id] = new RobotPosition($x, $y, "N");
@@ -74,15 +73,15 @@ class Arena {
         $y = $y + 1;
         break;
       case "W":
-        $x = $x - 1;
-        break;
+      $x=$x-1;
+      break;
       case "E":
-        $x = $x + 1;
-        break;
+      $x=$x+1;
+      break;
     }
-    $has_robot = $this->isRobotAt($x, $y);
-    $trial = ($this->board[$y][$x]) === ' '
-    && !$has_robot;
+    
+    $trial = ($this->board[$y][$x]) === ' ';
+
     return $trial;
   }
 
@@ -193,7 +192,6 @@ class Arena {
       $position = $this->positions[$id];
       $surroundings = $this->getSurroundings($position);
       $robot->setSurroundings($position, $surroundings);
-
       // on demande un ordre au robot
       $move = $robot->requestMove();
       switch ($move) {
