@@ -4,14 +4,10 @@ namespace Arena;
 
 class WinningCondition extends \Exception{
   private $winner;
-  private $message;
+  protected $message;
 
   public function __construct($message, Robot $winner){
-    $this->message = $message;
+    $this->message = $message. "(".get_class($winner).")";
     $this->winner  = $winner;
-  }
-
-  public function getMessage(){
-    return $this->message. "(".get_class($this->winner).")";
   }
 }
