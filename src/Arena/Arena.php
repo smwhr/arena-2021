@@ -219,7 +219,7 @@ class Arena {
           if ($victim) {
             $turn_report[] = "$victim is hit";
           }
-          if ($victim && $this->lives[$victim] < 0) {
+          if ($victim && $this->lives[$victim] <= 0) {
             $this->winner = $id;
             $this->loser = $victim;
             throw new WinningCondition(
