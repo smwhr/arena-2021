@@ -43,7 +43,7 @@ if(!isset($_SESSION['arena'])) {
 try{
   $turn_report = $arena->turn();
 }catch(\Arena\WinningCondition $wc){
-  echo $wc->getMessage();
+  $turn_report = [$wc->getMessage()];
 }
 
 

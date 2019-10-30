@@ -31,7 +31,7 @@ class MaximeRobot implements \Arena\Robot{
     }
   }
   
-  public function postHit() {
-    
+  public function postHit($from) {
+    echo "Tasukete Maxime-chan ! ಥ_ಥ";
   }
 }

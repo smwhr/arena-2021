@@ -12,7 +12,7 @@ class DefaultRobot implements \Arena\Robot{
     //TODO
   }
 
-  public function postHit() {
+  public function postHit($from) {
     
   }
 
