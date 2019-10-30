@@ -63,13 +63,15 @@ class Arena {
       $y=$y+1;
       break;
       case "W":
-      $x=$x+1;
-      break;
-      case "E":
       $x=$x-1;
       break;
+      case "E":
+      $x=$x+1;
+      break;
     }
-    $trial = ($this->board[$y][$x]) === ' ';  
+    
+    $trial = ($this->board[$y][$x]) === ' ';
+
     return $trial;
   }
 
@@ -179,7 +181,6 @@ class Arena {
       $position = $this->positions[$id];
       $surroundings = $this->getSurroundings($position);
       $robot->setSurroundings($position, $surroundings);
-
       // on demande un ordre au robot
       $move = $robot->requestMove();
       switch ($move) {
@@ -190,6 +191,7 @@ class Arena {
           $this->positions[$id]->rotate('right');
           break;
         case RobotOrder::AHEAD:
+        
           if($this->canEnter($position)){
             $this->positions[$id]->ahead(true);
           }
