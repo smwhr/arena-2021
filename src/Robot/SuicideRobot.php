@@ -23,7 +23,7 @@ class SuicideRobot implements \Arena\Robot{
     
   }
   
-  public function postHit() {
+  public function postHit($from) {
     $this->move = false;
   }
 }

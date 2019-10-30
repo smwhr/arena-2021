@@ -7,7 +7,8 @@ class DefaultRobot implements \Arena\Robot{
   public function requestMove(){
     //TODO
   }
-  public function postHit() {
+
+  public function postHit($from) {
     
   }
 }

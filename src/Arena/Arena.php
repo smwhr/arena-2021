@@ -5,11 +5,12 @@ class Arena {
   public $board;
   public $robots;
 
-  private $winner;
   private $positions;
   private $initialPositions;
-
   private $lives;
+
+  private $winner = false;
+  private $loser = false;
 
   public function __construct($ascii_board, $robots) {
 
@@ -29,6 +30,11 @@ class Arena {
     }
   }
 
+  	public function getRobotDirection($robot)
+	{
+		return $this->positions[$robot]->getDirection();
+	}
+
   private function loadBoard($ascii_board) {
     $ascii_rows = explode("\n", $ascii_board);
     $this->board = array_map(function ($row) {
@@ -45,23 +51,27 @@ class Arena {
     }
   }
 
-  private function setWinner($winner) {
-    $this->winner = $winner;
-  }
-  private function getWinner($winner) {
-    return $this->winner;
+  public function getSummary() {
+    $summary = [];
+    foreach ($this->robots as $id => $robot) {
+      $summary[$id] = ["class" => get_class($robot),
+        "life" => $this->lives[$id],
+        "position" => $this->positions[$id],
+      ];
+    }
+    return $summary;
   }
 
-  public function canEnter($position){
-    $y= $position->getY();
-    $x= $position->getX();
-    switch($position->getDirection()){
+  public function canAdvance($position) {
+    $y = $position->getY();
+    $x = $position->getX();
+    switch ($position->getDirection()) {
       case "N":
-      $y=$y-1;
-      break;
+        $y = $y - 1;
+        break;
       case "S":
-      $y=$y+1;
-      break;
+        $y = $y + 1;
+        break;
       case "W":
       $x=$x-1;
       break;
@@ -91,14 +101,6 @@ class Arena {
     return $surroundings;
   }
 
-  public function getBoardSize() {
-    //return size of board
-  }
-
-  public function askMove($robot) {
-    //logique qui déplace le robot en fonction de sa demande
-  }
-
   private function isRobotAt($x, $y) {
     $has_robot = false;
     foreach ($this->positions as $id => $position) {
@@ -126,7 +128,7 @@ class Arena {
     }
   }
 
-  public function fire($shooter){
+  public function fire($shooter) {
     // get position and facing
     $x = $this->positions[$shooter]->getX();
     $y = $this->positions[$shooter]->getY();
@@ -141,25 +143,25 @@ class Arena {
         case 'N':
           if ($position->getY() < $y && $position->getX() == $x) {
             // victim gets hit
-            $this->hit($victim);
+            $this->hit($shooter, $victim);
             return $victim;
           }
           break;
         case 'E':
           if ($position->getX() > $x && $position->getY() == $y) {
-            $this->hit($victim);
+            $this->hit($shooter, $victim);
             return $victim;
           }
           break;
         case 'S':
           if ($position->getY() > $y && $position->getX() == $x) {
-            $this->hit($victim);
+            $this->hit($shooter, $victim);
             return $victim;
           }
           break;
         case 'W':
           if ($position->getX() < $x && $position->getY() == $y) {
-            $this->hit($victim);
+            $this->hit($shooter, $victim);
             return $victim;
           }
           break;
@@ -167,16 +169,25 @@ class Arena {
       return false;
     }
   }
-  
-  public function hit($robot_id) {
-    $this->lives[$robot_id] = $this->lives[$robot_id] - 1;
-    $this->robots[$robot_id]->postHit();
-  }
 
+  public function hit($shooter, $victim) {
+
+    $this->lives[$victim] = $this->lives[$victim] - 1;
+    $this->robots[$victim]->postHit($this->positions[$shooter]->getDirection());
+  }
 
   public function turn() {
     // on a les positions des robots
     // on informe les robots de ce qui se trouve autour d'eux
+    if($this->winner){
+       throw new WinningCondition(
+              "{$this->loser} est mort. {$this->winner} a gagné.", 
+              $this->robots[$this->winner]);
+       return [];
+    }
+
+    $turn_report = [];
+
     foreach ($this->robots as $id => $robot) {
       $position = $this->positions[$id];
       $surroundings = $this->getSurroundings($position);
@@ -186,33 +197,42 @@ class Arena {
       switch ($move) {
         case RobotOrder::TURN_LEFT:
           $this->positions[$id]->rotate('left');
+          $turn_report[] = "$id turns left";
           break;
         case RobotOrder::TURN_RIGHT:
           $this->positions[$id]->rotate('right');
+          $turn_report[] = "$id turns right";
           break;
         case RobotOrder::AHEAD:
-        
-          if($this->canEnter($position)){
+          if ($this->canAdvance($position)) {
             $this->positions[$id]->ahead(true);
+            $turn_report[] = "$id goes ahead";
+          } else {
+            $turn_report[] = "$id is blocked";
           }
           break;
         case RobotOrder::FIRE:
+          $turn_report[] = "$id fires";
           $victim = $this->fire($id);
-          if($victim && $this->lives[$victim] == 0){
-            throw WinningCondition(
-              "$victim est mort. $id a gagné.", 
+          if ($victim) {
+            $turn_report[] = "$victim is hit";
+          }
+          if ($victim && $this->lives[$victim] <= 0) {
+            $this->winner = $id;
+            $this->loser = $victim;
+            throw new WinningCondition(
+              "$victim est mort. $id a gagné.",
               $this->robots[$id]);
           }
           break;
         default:
         case RobotOrder::WAIT:
+          $turn_report[] = "$id awaits";
           break;
       }
 
-      // on compte les points, et on arrête si y a un winner
-
     }
-
+    return $turn_report;
   }
 
 }

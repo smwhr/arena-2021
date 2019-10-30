@@ -23,7 +23,7 @@ private $surroundings;
 		return $actions[array_rand($actions)];
   }
   
-  public function postHit() {
+  public function postHit($from) {
     
   }
 }
