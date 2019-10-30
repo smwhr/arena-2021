@@ -53,26 +53,26 @@ class Arena {
     return $this->winner;
   }
 
-  public function canEnter($position){
-    $y= $position->getY();
-    $x= $position->getX();
-    switch($position->getDirection()){
+  public function canEnter($position) {
+    $y = $position->getY();
+    $x = $position->getX();
+    switch ($position->getDirection()) {
       case "N":
-      $y=$y-1;
-      break;
+        $y = $y - 1;
+        break;
       case "S":
-      $y=$y+1;
-      break;
+        $y = $y + 1;
+        break;
       case "W":
-      $x=$x+1;
-      break;
+        $x = $x - 1;
+        break;
       case "E":
-      $x=$x-1;
-      break;
+        $x = $x + 1;
+        break;
     }
     $has_robot = $this->isRobotAt($x, $y);
     $trial = ($this->board[$y][$x]) === ' '
-              && !$has_robot;  
+    && !$has_robot;
     return $trial;
   }
 
@@ -127,7 +127,7 @@ class Arena {
     }
   }
 
-  public function fire($shooter){
+  public function fire($shooter) {
     // get position and facing
     $x = $this->positions[$shooter]->getX();
     $y = $this->positions[$shooter]->getY();
@@ -168,12 +168,11 @@ class Arena {
       return false;
     }
   }
-  
+
   public function hit($robot_id) {
     $this->lives[$robot_id] = $this->lives[$robot_id] - 1;
     $this->robots[$robot_id]->postHit();
   }
-
 
   public function turn() {
     // on a les positions des robots
@@ -193,15 +192,15 @@ class Arena {
           $this->positions[$id]->rotate('right');
           break;
         case RobotOrder::AHEAD:
-          if($this->canEnter($position)){
+          if ($this->canEnter($position)) {
             $this->positions[$id]->ahead(true);
           }
           break;
         case RobotOrder::FIRE:
           $victim = $this->fire($id);
-          if($victim && $this->lives[$victim] == 0){
+          if ($victim && $this->lives[$victim] == 0) {
             throw WinningCondition(
-              "$victim est mort. $id a gagné.", 
+              "$victim est mort. $id a gagné.",
               $this->robots[$id]);
           }
           break;
