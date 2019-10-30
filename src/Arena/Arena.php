@@ -212,7 +212,7 @@ class Arena {
             $turn_report[] = "$victim is hit";
           }
           if($victim && $this->lives[$victim] == 0){
-            throw WinningCondition(
+            throw new WinningCondition(
               "$victim est mort. $id a gagné.", 
               $this->robots[$id]);
           }
