@@ -23,7 +23,7 @@ include("../src/controller.php");
     </form>
   </fieldset>
   
-<pre><?php $arena->drawBoard();?></pre>
+  <pre><?php $arena->drawBoard();?></pre>
 
   
 </body>

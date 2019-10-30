@@ -8,7 +8,6 @@ class Arena {
   private $winner;
   private $positions;
   private $initialPositions;
-
   private $lives;
 
   public function __construct($ascii_board, $robots) {
@@ -53,22 +52,22 @@ class Arena {
     return $this->winner;
   }
 
-  public function canEnter($position){
-    $y= $position->getY();
-    $x= $position->getX();
+  public function canAdvance($position){
+    $y = $position->getY();
+    $x = $position->getX();
     switch($position->getDirection()){
       case "N":
-      $y=$y-1;
-      break;
+        $y = $y - 1;
+        break;
       case "S":
-      $y=$y+1;
-      break;
+        $y = $y + 1;
+        break;
       case "W":
-      $x=$x+1;
-      break;
+        $x = $x + 1;
+        break;
       case "E":
-      $x=$x-1;
-      break;
+        $x = $x - 1;
+        break;
     }
     $has_robot = $this->isRobotAt($x, $y);
     $trial = ($this->board[$y][$x]) === ' '
@@ -178,6 +177,9 @@ class Arena {
   public function turn() {
     // on a les positions des robots
     // on informe les robots de ce qui se trouve autour d'eux
+
+    $summary = [];
+
     foreach ($this->robots as $id => $robot) {
       $position = $this->positions[$id];
       $surroundings = $this->getSurroundings($position);
@@ -188,17 +190,26 @@ class Arena {
       switch ($move) {
         case RobotOrder::TURN_LEFT:
           $this->positions[$id]->rotate('left');
+          $summary[] = "$id turns left";
           break;
         case RobotOrder::TURN_RIGHT:
           $this->positions[$id]->rotate('right');
+          $summary[] = "$id turns right";
           break;
         case RobotOrder::AHEAD:
-          if($this->canEnter($position)){
+          if($this->canAdvance($position)){
             $this->positions[$id]->ahead(true);
+            $summary[] = "$id goes ahead";
+          }else{
+            $summary[] = "$id is blocked";
           }
           break;
         case RobotOrder::FIRE:
+          $summary[] = "$id fires";
           $victim = $this->fire($id);
+          if($victim){
+            $summary[] = "$victim is hit";
+          }
           if($victim && $this->lives[$victim] == 0){
             throw WinningCondition(
               "$victim est mort. $id a gagné.", 
@@ -210,9 +221,8 @@ class Arena {
           break;
       }
 
-      // on compte les points, et on arrête si y a un winner
-
     }
+    return $summary;
 
   }
 
