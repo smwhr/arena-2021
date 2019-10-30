@@ -142,25 +142,25 @@ class Arena {
         case 'N':
           if ($position->getY() < $y && $position->getX() == $x) {
             // victim gets hit
-            $this->hit($victim);
+            $this->hit($shooter,$victim);
             return $victim;
           }
           break;
         case 'E':
           if ($position->getX() > $x && $position->getY() == $y) {
-            $this->hit($victim);
+            $this->hit($shooter,$victim);
             return $victim;
           }
           break;
         case 'S':
           if ($position->getY() > $y && $position->getX() == $x) {
-            $this->hit($victim);
+            $this->hit($shooter,$victim);
             return $victim;
           }
           break;
         case 'W':
           if ($position->getX() < $x && $position->getY() == $y) {
-            $this->hit($victim);
+            $this->hit($shooter,$victim);
             return $victim;
           }
           break;
