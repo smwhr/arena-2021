@@ -12,7 +12,7 @@ class AheadRobot implements \Arena\Robot{
     return \Arena\RobotOrder::AHEAD;
   }
   
-  public function postHit() {
+  public function postHit($from) {
     
   }
 }
