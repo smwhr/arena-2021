@@ -185,6 +185,7 @@ class Arena {
        throw new WinningCondition(
               "{$this->loser} est mort. {$this->winner} a gagné.", 
               $this->robots[$this->winner]);
+       return [];
     }
 
     $turn_report = [];
